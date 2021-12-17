@@ -22,7 +22,7 @@ public class Producto {
 	@JoinTable(name = "Productos_Categorias",
 	        joinColumns = @JoinColumn(name = "Id_Producto", referencedColumnName = "Id", nullable = false),
 	        inverseJoinColumns = @JoinColumn(name="Id_Categoria", referencedColumnName = "Id", nullable = false))
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private List<Categoria> categorias;
 
 	

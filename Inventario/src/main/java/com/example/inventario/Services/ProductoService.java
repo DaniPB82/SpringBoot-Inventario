@@ -21,4 +21,20 @@ public class ProductoService {
 	public List<Producto> obtenerTodosLosProductosPorCategoria(Long id){
 		return (List<Producto>) daoProducto.findByCategoriaId(id);
 	}
+	
+	public Producto obtenerProductoPorId(Long id) {
+		return daoProducto.findById(id).get();
+	}
+	
+	public Producto obtenerProductoPorNombre(String nombre) {
+		return daoProducto.findByNombre(nombre);
+	}
+	
+	public Producto guardarProducto(Producto producto) {
+		return daoProducto.save(producto);
+	}
+	
+	public void eliminarProducto(Producto producto) {
+		daoProducto.delete(producto);
+	}
 }
