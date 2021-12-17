@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Listado Categorías</title>
+<th:block th:insert="~{fragments/general :: link}"></th:block>
+<link th:href="@{/datatables/DataTables-1.11.3/css/dataTables.bootstrap5.min.css}" rel="stylesheet">
+</head>
+<body>
+
+	<div th:replace="fragments/general :: barra_navegacion"></div>
+
+	<div class="container">
+		<div th:replace="fragments/categorias :: lista_categorias"></div>
+	</div>
+	
+	<script th:src="@{/jquery/jquery-3.6.0.min.js}" type="text/javascript"></script>
+	<script th:src="@{/datatables/DataTables-1.11.3/js/jquery.dataTables.min.js}" type="text/javascript"></script>
+	<script th:src="@{/datatables/DataTables-1.11.3/js/dataTables.bootstrap5.min.js}" type="text/javascript"></script>
+	<script>
+        $(function () {
+            $('table').DataTable({
+                language: {
+                    url: '/datatables/es_es.json'
+                }
+            })
+        });
+    </script>
+	
+	<th:block th:insert="~{fragments/general :: script}"></th:block>
+	
+</body>
+</html>

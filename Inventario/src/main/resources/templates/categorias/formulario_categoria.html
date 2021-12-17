@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<th:block th:insert="~{fragments/general :: link}"></th:block>
+<th:block th:insert="~{fragments/general :: script}"></th:block>
+</head>
+<body>
+	<div th:replace="fragments/general :: barra_navegacion"></div>
+	<div class="container">
+		
+		<div th:replace="fragments/categorias :: formulario_categoria"></div>
+	</div>
+</body>
+</html>
