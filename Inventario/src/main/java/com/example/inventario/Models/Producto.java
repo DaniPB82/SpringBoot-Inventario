@@ -22,7 +22,7 @@ public class Producto {
 	@JoinTable(name = "Productos_Categorias",
 	        joinColumns = @JoinColumn(name = "Id_Producto", referencedColumnName = "Id", nullable = false),
 	        inverseJoinColumns = @JoinColumn(name="Id_Categoria", referencedColumnName = "Id", nullable = false))
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	private List<Categoria> categorias;
 
 	
@@ -53,6 +53,14 @@ public class Producto {
 		this.nombre = nombre;
 	}
 
+	public Double getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(Double precio) {
+		this.precio = precio;
+	}
+
 	public List<Categoria> getCategorias() {
 		return categorias;
 	}
@@ -63,7 +71,7 @@ public class Producto {
 
 	@Override
 	public String toString() {
-		return "Producto [id=" + id + ", nombre=" + nombre + ", categorias=" + categorias + "]";
+		return "Producto [id=" + id + ", nombre=" + nombre + ", precio=" + precio + ", categorias=" + categorias + "]";
 	}
 
 	
