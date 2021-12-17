@@ -10,4 +10,6 @@ import com.example.inventario.Models.Categoria;
 @Transactional
 public interface IDaoCategoria extends CrudRepository<Categoria, Long>{
 
+	public Categoria findByNombre(String nombre);
+	
 }

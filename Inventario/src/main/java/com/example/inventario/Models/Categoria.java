@@ -13,7 +13,7 @@ public class Categoria {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(name="Nombre", nullable = false)
+    @Column(name="Nombre", unique = true, nullable = false)
     private String nombre;
     
     @ManyToMany(mappedBy = "categorias")
@@ -24,6 +24,25 @@ public class Categoria {
 	public Categoria() {
 		super();
 	}
+	
+	
+
+	public Categoria(Long id, String nombre) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+	}
+
+
+
+	public Categoria(Long id, String nombre, List<Producto> productos) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.productos = productos;
+	}
+
+
 
 	public Categoria(String nombre, List<Producto> productos) {
 		super();
@@ -57,7 +76,7 @@ public class Categoria {
 
 	@Override
 	public String toString() {
-		return "Categoria [id=" + id + ", nombre=" + nombre + "]";
+		return nombre;
 	}
     
     
