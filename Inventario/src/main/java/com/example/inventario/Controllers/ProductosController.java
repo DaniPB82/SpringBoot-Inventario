@@ -55,24 +55,32 @@ public class ProductosController {
 
 	@GetMapping(value = "/modificar/{id}")
 	public String modificarProducto(@PathVariable("id") Long id, Model modelo) {
-		Producto categoria = productoService.obtenerProductoPorId(id);
+		Producto producto = productoService.obtenerProductoPorId(id);
 		List<Categoria> listaCategorias = categoriaService.obtenerTodasLasCategorias();
 		listaCategorias.sort(Comparator.comparing(Categoria::getNombre));
 		modelo.addAttribute("listaCategorias", listaCategorias);
-		modelo.addAttribute("producto", categoria);
+		modelo.addAttribute("producto", producto);
 		return "productos/formulario_producto";
 	}
 
 	@PostMapping("/guardar")
-	public String guardarCategoria(Producto producto) {
+	public String guardarProducto(Producto producto) {
 		Producto proTemp = productoService.obtenerProductoPorNombre(producto.getNombre());
 		if (proTemp != null) {
-			return "productos/error_producto";
-		} else {
-			productoService.guardarProducto(producto);
-			return "redirect:/productos/listar";
+			if (producto.getNombre().equals(proTemp.getNombre()) && 
+					producto.getPrecio().equals(proTemp.getPrecio()) &&
+					producto.getCategorias().equals(proTemp.getCategorias())) {
+				return "productos/error_producto";
+			}
+			else {
+				productoService.guardarProducto(producto);
+				return "redirect:/productos/listar";
+			}
 		}
+		productoService.guardarProducto(producto);
+		return "redirect:/productos/listar";
 	}
+
 
 	@GetMapping("/eliminar/{id}")
 	public String eliminarProducto(@PathVariable("id") Long id, Model modelo) {
