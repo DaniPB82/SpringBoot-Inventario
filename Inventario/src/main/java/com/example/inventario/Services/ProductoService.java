@@ -22,6 +22,10 @@ public class ProductoService {
 		return (List<Producto>) daoProducto.findByCategoriaId(id);
 	}
 	
+	public List<Producto> obtenerTodosLosProductosPorMarca(Long id){
+		return (List<Producto>) daoProducto.findByMarcaId(id);
+	}
+	
 	public Producto obtenerProductoPorId(Long id) {
 		return daoProducto.findById(id).get();
 	}

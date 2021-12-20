@@ -7,7 +7,11 @@
 <body>
 
 	<div th:fragment="lista_productos">
-		<h1 th:if="${categoria == null}">Lista de productos</h1>
+		<h1 th:if="${categoria == null && marca == null}">Lista de Productos</h1>
+		
+		<h1 th:unless="${marca == null}">
+			Lista de <span th:text="${marca.nombre}"></span></h1>
+		
 		<h1 th:unless="${categoria == null}">
 			Lista de <span th:text="${categoria.nombre}"></span>
 		</h1>
@@ -15,8 +19,8 @@
 			class="table table-bordered table-stripped table-hover mt-3 mb-3">
 			<thead class="table-dark">
 				<tr>
-					<th>Id</th>
 					<th>Nombre</th>
+					<th>Marca</th>
 					<th>Precio</th>
 					<th>Categorías</th>
 					<th>Acciones</th>
@@ -25,8 +29,8 @@
 			</thead>
 			<tbody>
 				<tr th:each="producto : ${listaProductos}">
-					<th th:text="${producto.id}" class="align-middle">...</th>
 					<td th:text="${producto.nombre}" class="align-middle">...</td>
+					<td th:text="${producto.marca.nombre}" class="align-middle">...</td>
 					<td th:text="${producto.precio + ' €'}" class="align-middle">...</td>
 					<td th:text="${producto.categorias}" class="align-middle">...</td>
 					<td><a
@@ -42,8 +46,8 @@
 	</div>
 
 	<div th:fragment="formulario_producto">
-		<h1 th:if="${producto.id == null}">Nuevo producto</h1>
-		<h1 th:unless="${producto.id == null}">Modificar producto</h1>
+		<h1 th:if="${producto.id == null}">Nuevo Producto</h1>
+		<h1 th:unless="${producto.id == null}">Modificar Producto</h1>
 		<div class="card card-body">
 			<form th:action="@{/productos/guardar}" th:object="${producto}"
 				method="post">
@@ -59,6 +63,17 @@
 					<div class="col-sm-10">
 						<input type="text" th:field="*{nombre}" class="form-control"
 							id="inputNombre">
+					</div>
+				</div>
+				<div class="row mb-3">
+					<label for="inputMarca" class="col-sm-2 col-form-label">Marca</label>
+					<div class="col-sm-10">
+
+						<select th:field="*{marca}" class="form-control">
+							<option th:each="marca : ${listaMarcas}"
+								th:text="${marca.nombre}" th:value="${marca.id}"></option>
+						</select>
+						
 					</div>
 				</div>
 				<div class="row mb-3">

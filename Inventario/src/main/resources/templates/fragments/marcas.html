@@ -2,12 +2,12 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Fragmentos de Categorías</title>
+<title>Fragmentos de Marcas</title>
 </head>
 <body>
 
-	<div th:fragment="lista_categorias">
-		<h1>Lista de Categorías</h1>
+	<div th:fragment="lista_marcas">
+		<h1>Lista de Marcas</h1>
 		<table
 			class="table table-bordered table-stripped table-hover mt-3 mb-3">
 			<thead class="table-dark">
@@ -18,27 +18,27 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="categoria : ${listaCategorias}">
-					<td th:text="${categoria.nombre}" class="align-middle">...</td>
+				<tr th:each="marca : ${listaMarcas}">
+					<td th:text="${marca.nombre}" class="align-middle">...</td>
 					<td><a
-						th:href="@{'/productos/categoria' + '/' + ${categoria.id}}"
+						th:href="@{'/productos/marca' + '/' + ${marca.id}}"
 						class="btn btn-primary">Mostrar productos</a> <a
-						th:href="@{'/categorias/modificar' + '/' + ${categoria.id}}"
+						th:href="@{'/marcas/modificar' + '/' + ${marca.id}}"
 						class="btn btn-success">Modificar</a> <a
-						th:href="@{'/categorias/eliminar' + '/' + ${categoria.id}}"
+						th:href="@{'/marcas/eliminar' + '/' + ${marca.id}}"
 						class="btn btn-danger">Eliminar</a></td>
 				</tr>
 			</tbody>
 		</table>
-		<a th:href="@{/categorias/nueva}"><button class="btn btn-primary">Agregar
+		<a th:href="@{/marcas/nueva}"><button class="btn btn-primary">Agregar
 				nueva</button></a>
 	</div>
 
-	<div th:fragment="formulario_categoria">
-		<h1 th:if="${categoria.id == null}">Nueva Categoría</h1>
-		<h1 th:unless="${categoria.id == null}">Modificar Categoría</h1>
+	<div th:fragment="formulario_marca">
+		<h1 th:if="${marca.id == null}">Nueva Marca</h1>
+		<h1 th:unless="${marca.id == null}">Modificar Marca</h1>
 		<div class="card card-body">
-			<form th:action="@{/categorias/guardar}" th:object="${categoria}"
+			<form th:action="@{/marcas/guardar}" th:object="${marca}"
 				method="post">
 				<div class="row mb-3">
 
@@ -59,8 +59,8 @@
 		</div>
 	</div>
 
-	<div th:fragment="error_categoria">
-		<h1>La Categoría ya existe</h1>
+	<div th:fragment="error_marca">
+		<h1>La Marca ya existe</h1>
 	</div>
 
 </body>

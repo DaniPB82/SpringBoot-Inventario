@@ -1,6 +1,5 @@
 package com.example.inventario.Controllers;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -13,8 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.inventario.Models.Categoria;
+import com.example.inventario.Models.Marca;
 import com.example.inventario.Models.Producto;
 import com.example.inventario.Services.CategoriaService;
+import com.example.inventario.Services.MarcaService;
 import com.example.inventario.Services.ProductoService;
 
 @Controller
@@ -26,6 +27,9 @@ public class ProductosController {
 
 	@Autowired
 	private CategoriaService categoriaService;
+	
+	@Autowired
+	private MarcaService marcaService;
 
 	@GetMapping("/listar")
 	public String listaProductos(Model modelo) {
@@ -43,12 +47,25 @@ public class ProductosController {
 		modelo.addAttribute("categoria", categoria);
 		return "productos/listado_productos";
 	}
+	
+	@GetMapping("/marca/{id}")
+	public String listaProductosPorMarca(@PathVariable("id") Long id, Model modelo) {
+		List<Producto> listaProductos = productoService.obtenerTodosLosProductosPorMarca(id);
+		Marca marca = marcaService.obtenerMarcaPorId(id);
+		// String nombreCategoria = categoria.getNombre();
+		modelo.addAttribute("listaProductos", listaProductos);
+		modelo.addAttribute("marca", marca);
+		return "productos/listado_productos";
+	}
 
 	@GetMapping(value = "/nuevo")
 	public String nuevoProducto(Model modelo) {
 		List<Categoria> listaCategorias = categoriaService.obtenerTodasLasCategorias();
 		listaCategorias.sort(Comparator.comparing(Categoria::getNombre));
+		List<Marca> listaMarcas = marcaService.obtenerTodasLasMarcas();
+		listaMarcas.sort(Comparator.comparing(Marca::getNombre));
 		modelo.addAttribute("listaCategorias", listaCategorias);
+		modelo.addAttribute("listaMarcas", listaMarcas);
 		modelo.addAttribute("producto", new Producto());
 		return "productos/formulario_producto";
 	}
@@ -58,7 +75,10 @@ public class ProductosController {
 		Producto producto = productoService.obtenerProductoPorId(id);
 		List<Categoria> listaCategorias = categoriaService.obtenerTodasLasCategorias();
 		listaCategorias.sort(Comparator.comparing(Categoria::getNombre));
+		List<Marca> listaMarcas = marcaService.obtenerTodasLasMarcas();
+		listaMarcas.sort(Comparator.comparing(Marca::getNombre));
 		modelo.addAttribute("listaCategorias", listaCategorias);
+		modelo.addAttribute("listaMarcas", listaMarcas);
 		modelo.addAttribute("producto", producto);
 		return "productos/formulario_producto";
 	}
