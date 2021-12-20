@@ -19,11 +19,11 @@
 			class="table table-bordered table-stripped table-hover mt-3 mb-3">
 			<thead class="table-dark">
 				<tr>
-					<th>Nombre</th>
-					<th>Marca</th>
-					<th>Precio</th>
-					<th>Categorías</th>
-					<th>Acciones</th>
+					<th class="text-center">NOMBRE</th>
+					<th class="text-center">MARCA</th>
+					<th class="text-center">PRECIO</th>
+					<th class="text-center">CATEGORÍAS</th>
+					<th class="text-center">ACCIONES</th>
 
 				</tr>
 			</thead>
@@ -31,7 +31,7 @@
 				<tr th:each="producto : ${listaProductos}">
 					<td th:text="${producto.nombre}" class="align-middle">...</td>
 					<td th:text="${producto.marca.nombre}" class="align-middle">...</td>
-					<td th:text="${producto.precio + ' €'}" class="align-middle">...</td>
+					<td th:text="${producto.precio + ' €'}" class="align-middle text-end">...</td>
 					<td th:text="${producto.categorias}" class="align-middle">...</td>
 					<td><a
 						th:href="@{'/productos/modificar' + '/' + ${producto.id}}"
