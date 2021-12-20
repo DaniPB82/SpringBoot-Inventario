@@ -27,7 +27,7 @@
 				<tr th:each="producto : ${listaProductos}">
 					<th th:text="${producto.id}" class="align-middle">...</th>
 					<td th:text="${producto.nombre}" class="align-middle">...</td>
-					<td th:text="${producto.precio}" class="align-middle">...</td>
+					<td th:text="${producto.precio + ' €'}" class="align-middle">...</td>
 					<td th:text="${producto.categorias}" class="align-middle">...</td>
 					<td><a
 						th:href="@{'/productos/modificar' + '/' + ${producto.id}}"

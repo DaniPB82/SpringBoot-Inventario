@@ -1,8 +1,14 @@
 package com.example.inventario.Models;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.List;
+import java.util.Locale;
 
 import javax.persistence.*;
+
+import org.springframework.format.annotation.NumberFormat;
 
 @Entity
 @Table(name = "Productos")
@@ -13,11 +19,12 @@ public class Producto {
 	@Column(name = "Id", unique = true, nullable = false)
 	private Long id;
 	
-	@Column(name = "Nombre", nullable = false)
+	@Column(name = "Nombre", unique = true, nullable = false)
 	private String nombre;
 	
+	@NumberFormat(pattern = "#.00")
 	@Column(name = "Precio", nullable = false)
-	private Double precio;
+	private BigDecimal precio;
 	
 	@JoinTable(name = "Productos_Categorias",
 	        joinColumns = @JoinColumn(name = "Id_Producto", referencedColumnName = "Id", nullable = false),
@@ -53,11 +60,11 @@ public class Producto {
 		this.nombre = nombre;
 	}
 
-	public Double getPrecio() {
+	public BigDecimal getPrecio() {
 		return precio;
 	}
 
-	public void setPrecio(Double precio) {
+	public void setPrecio(BigDecimal precio) {
 		this.precio = precio;
 	}
 
