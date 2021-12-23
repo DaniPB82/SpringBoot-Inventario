@@ -34,27 +34,33 @@ public class ProductosController {
 	@GetMapping("/listar")
 	public String listaProductos(Model modelo) {
 		List<Producto> listaProductos = productoService.obtenerTodosLosProductos();
+		
 		modelo.addAttribute("listaProductos", listaProductos);
+		
 		return "productos/listado_productos";
 	}
 
 	@GetMapping("/categoria/{id}")
 	public String listaProductosPorCategoria(@PathVariable("id") Long id, Model modelo) {
 		List<Producto> listaProductos = productoService.obtenerTodosLosProductosPorCategoria(id);
+		
 		Categoria categoria = categoriaService.obtenerCategoriaPorId(id);
-		// String nombreCategoria = categoria.getNombre();
+		
 		modelo.addAttribute("listaProductos", listaProductos);
 		modelo.addAttribute("categoria", categoria);
+		
 		return "productos/listado_productos";
 	}
 	
 	@GetMapping("/marca/{id}")
 	public String listaProductosPorMarca(@PathVariable("id") Long id, Model modelo) {
 		List<Producto> listaProductos = productoService.obtenerTodosLosProductosPorMarca(id);
+		
 		Marca marca = marcaService.obtenerMarcaPorId(id);
-		// String nombreCategoria = categoria.getNombre();
+		
 		modelo.addAttribute("listaProductos", listaProductos);
 		modelo.addAttribute("marca", marca);
+		
 		return "productos/listado_productos";
 	}
 
@@ -62,24 +68,31 @@ public class ProductosController {
 	public String nuevoProducto(Model modelo) {
 		List<Categoria> listaCategorias = categoriaService.obtenerTodasLasCategorias();
 		listaCategorias.sort(Comparator.comparing(Categoria::getNombre));
+		
 		List<Marca> listaMarcas = marcaService.obtenerTodasLasMarcas();
 		listaMarcas.sort(Comparator.comparing(Marca::getNombre));
+		
 		modelo.addAttribute("listaCategorias", listaCategorias);
 		modelo.addAttribute("listaMarcas", listaMarcas);
 		modelo.addAttribute("producto", new Producto());
+		
 		return "productos/formulario_producto";
 	}
 
 	@GetMapping(value = "/modificar/{id}")
 	public String modificarProducto(@PathVariable("id") Long id, Model modelo) {
 		Producto producto = productoService.obtenerProductoPorId(id);
+		
 		List<Categoria> listaCategorias = categoriaService.obtenerTodasLasCategorias();
 		listaCategorias.sort(Comparator.comparing(Categoria::getNombre));
+		
 		List<Marca> listaMarcas = marcaService.obtenerTodasLasMarcas();
 		listaMarcas.sort(Comparator.comparing(Marca::getNombre));
+		
 		modelo.addAttribute("listaCategorias", listaCategorias);
 		modelo.addAttribute("listaMarcas", listaMarcas);
 		modelo.addAttribute("producto", producto);
+		
 		return "productos/formulario_producto";
 	}
 
@@ -105,11 +118,13 @@ public class ProductosController {
 	@GetMapping("/eliminar/{id}")
 	public String eliminarProducto(@PathVariable("id") Long id, Model modelo) {
 		Producto producto = productoService.obtenerProductoPorId(id);
-
+		modelo.addAttribute("producto", producto);
+		return "productos/eliminar_producto";
+	}
+	
+	@PostMapping("/eliminar")
+	public String eliminarProductoConfirmado(Producto producto) {
 		productoService.eliminarProducto(producto);
 		return "redirect:/productos/listar";
-
-		// modelo.addAttribute("producto", producto);
-
 	}
 }

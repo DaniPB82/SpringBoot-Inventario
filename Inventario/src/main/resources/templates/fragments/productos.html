@@ -98,6 +98,47 @@
 			</form>
 		</div>
 	</div>
+	
+	<div th:fragment="eliminar_producto">
+		<h1>¿Está segur@ de que desea eliminar este producto?</h1>
+		<div class="card card-body">
+			<form th:action="@{/productos/eliminar}" th:object="${producto}"
+				method="post">
+				<div class="row mb-3">
+
+					<div class="col-sm-10">
+						<input type="hidden" th:field="*{id}" class="form-control"
+							id="inputId">
+					</div>
+				</div>
+				<div class="row mb-3">
+					<label for="Nombre" class="col-sm-2 col-form-label">Nombre: </label>
+					<div class="col-sm-10">
+						<label id="Nombre" th:text="*{nombre}" for="NombreObjeto" class="col-sm-2 col-form-label">...</label>
+					</div>
+				</div>
+				<div class="row mb-3">
+					<label for="Marca" class="col-sm-2 col-form-label">Marca: </label>
+					<div class="col-sm-10">
+						<label id="Marca" th:text="*{marca}" for="MarcaObjeto" class="col-sm-2 col-form-label">...</label>
+					</div>
+				</div>
+				<div class="row mb-3">
+					<label for="Precio" class="col-sm-2 col-form-label">Precio: </label>
+					<div class="col-sm-10">
+						<label id="Precio" th:text="*{precio + ' €'}" for="PrecioObjeto" class="col-sm-2 col-form-label">...</label>
+					</div>
+				</div>
+				<div class="row mb-3">
+					<label for="Categoria" class="col-sm-2 col-form-label">Categoría: </label>
+					<div class="col-sm-10">
+						<label id="Categoria" th:text="*{categorias}" for="CategoriaObjeto" class="col-sm-2 col-form-label">...</label>
+					</div>
+				</div>
+				<button type="submit" class="btn btn-danger">Eliminar</button>
+			</form>
+		</div>
+	</div>
 
 	<div th:fragment="error_producto">
 		<h1>El producto ya existe</h1>
